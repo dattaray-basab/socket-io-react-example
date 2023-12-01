@@ -8,18 +8,20 @@ app.use(cors());
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
+const server_io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
+console.log("SERVER is SETTING UP to ACCEPT messages from PORT 3000");
 
-io.on("connection", (socket) => {
+server_io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("join_room", (data) => {
-    socket.join(data);
+  socket.on("join_room", (channel) => {
+    socket.join(channel);
+    console.log(`Server join room: ${channel}`);
   });
 
   socket.on("send_message", (data) => {
@@ -28,5 +30,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3001, () => {
-  console.log("SERVER IS RUNNING");
+  console.log("SERVER IS RUNNING and LISTENING ON PORT 3001");
 });
