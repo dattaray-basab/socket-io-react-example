@@ -6,6 +6,8 @@ const cors = require("cors");
 
 app.use(cors());
 
+let current_info = null;
+
 const server = http.createServer(app);
 
 const server_io = new Server(server, {
@@ -22,9 +24,13 @@ server_io.on("connection", (socket) => {
   socket.on("join_room", (room) => {
     socket.join(room);
     console.log(`Server join room: ${room}`);
+    if (current_info) {
+      socket.emit("receive_message", current_info);
+    }
   });
 
   socket.on("send_message", (info_object) => {
+    current_info = info_object;
     socket.to(info_object.room).emit("receive_message", info_object);
   });
 });
