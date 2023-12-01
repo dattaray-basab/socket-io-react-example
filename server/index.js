@@ -19,9 +19,9 @@ console.log("SERVER is SETTING UP to ACCEPT messages from PORT 3000");
 server_io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-  socket.on("join_room", (channel) => {
-    socket.join(channel);
-    console.log(`Server join room: ${channel}`);
+  socket.on("join_room", (room) => {
+    socket.join(room);
+    console.log(`Server join room: ${room}`);
   });
 
   socket.on("send_message", (data) => {
