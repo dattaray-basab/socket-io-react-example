@@ -24,8 +24,8 @@ server_io.on("connection", (socket) => {
     console.log(`Server join room: ${room}`);
   });
 
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
+  socket.on("send_message", (info_object) => {
+    socket.to(info_object.room).emit("receive_message", info_object);
   });
 });
 

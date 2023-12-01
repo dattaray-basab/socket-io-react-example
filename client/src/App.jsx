@@ -19,8 +19,8 @@ function App() {
   };
 
   const sendMessage = () => {
-    setMessageReceived(`${room}:: ${message}`);
-    socket.emit("send_message", { message, room });
+    socket.emit("send_message", { message: message, room: room });
+    // socket.emit("send_message", { message, room });
   };
 
   useEffect(() => {
